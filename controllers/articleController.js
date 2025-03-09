@@ -1,5 +1,7 @@
 const User = require('../models/User');
-const Article = require('../models/Article')
+const Article = require('../models/Article');
+const { compare } = require('bcrypt');
+const { verify } = require('jsonwebtoken');
 // GET Articles
 exports.getAllArticles = async (req, res) => {
     try {
@@ -30,6 +32,10 @@ exports.addArticle = async (req, res) => {
 exports.updateArticle = async (req, res) => {
     try {
         const { id } = req.params;
+        const {user_id}=req.body
+        const article=await Article.findOne({_id:id})
+        if(!article) return res.json("article not found")
+        if(article.user_id!=user_id) return res.json("You are not allowed to update this article")
         const updatedArticle = await Article.findByIdAndUpdate(id, req.body, { new: true });
         res.json(updatedArticle);
     } catch (error) {
@@ -41,6 +47,10 @@ exports.updateArticle = async (req, res) => {
 exports.deleteArticle = async (req, res) => {
     try {
         const { id } = req.params;
+        const {user_id}=req.body
+        const article=await Article.findOne({_id:id})
+        if(!article) return res.json("article not found")
+        if(article.user_id!=user_id) return res.json("You are not allowed to delete this article")
         await Article.findByIdAndDelete(id);
         res.json({ message: 'Article deleted.' });
     } catch (error) {
