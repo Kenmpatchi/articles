@@ -1,3 +1,4 @@
+// Description: This file contains the logic for handling requests from the auth routes.
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');

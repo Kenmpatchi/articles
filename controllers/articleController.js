@@ -1,7 +1,5 @@
-const User = require('../models/User');
+// Description: All article related functions are implemented here
 const Article = require('../models/Article');
-const { compare } = require('bcrypt');
-const { verify } = require('jsonwebtoken');
 // GET Articles
 exports.getAllArticles = async (req, res) => {
     try {

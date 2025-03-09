@@ -1,3 +1,4 @@
+// Desc: Article routes
 const express = require('express');
 const { getAllArticles, addArticle, updateArticle, deleteArticle } = require('../controllers/articleController');
 const authenticateToken = require('../middlewares/authMiddleware');
